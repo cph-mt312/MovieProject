@@ -19,6 +19,8 @@ public class MovieFacadeTest {
 
     private static EntityManagerFactory emf;
     private static MovieFacade facade;
+    private static Movie m1 = new Movie("Pulp Fiction", 1994, 8.9);
+    private static Movie m2 = new Movie("Alone in the Dark", 2005, 2.4);
 
     public MovieFacadeTest() {
     }
@@ -27,17 +29,26 @@ public class MovieFacadeTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
         facade = MovieFacade.getMovieFacade(emf);
-        Movie m1 = facade.addMovie("Avatar", 2009, 7.8);
-        Movie m2 = facade.addMovie("The Room", 2003, 3.7);
     }
 
     @AfterAll
     public static void tearDownClass() {
     }
 
+    // Setup the DataBase in a known state BEFORE EACH TEST
+    //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
     public void setUp() {
-
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
+            em.persist(m1);
+            em.persist(m2);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 
     @AfterEach
