@@ -33,7 +33,7 @@ public class MovieResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-    @Path("count")
+    @Path("/count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMovieCount() {
