@@ -14,6 +14,8 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,5 +103,49 @@ public class MovieResourceTest {
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
+    }
+
+    @Test
+    public void testGetAllMovies() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/all").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size()", is(2))
+                .and()
+                .body("title", hasItems("Pulp Fiction", "Alone in the Dark"));
+    }
+
+    @Test
+    public void testGetMovieById() throws Exception {
+        int movieId = m1.getId();
+        given()
+                .contentType("application/json")
+                .get("/movie/{id}", movieId).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", equalTo(m1.getTitle()));
+    }
+
+    @Test
+    public void testGetMovieByTitle() throws Exception {
+        String movieTitle = m1.getTitle();
+        given()
+                .contentType("application/json")
+                .get("/movie/title/{title}", movieTitle).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("[0].title", equalTo(movieTitle));
+    }
+
+    @Test
+    public void testGetMoviesWithHighestRating() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/movie/best_rated").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", hasItems("Pulp Fiction"));
     }
 }
