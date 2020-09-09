@@ -64,15 +64,30 @@ public class MovieFacadeTest {
 
     @Test
     public void testGetMovieById() {
-        int id = m1.getId();
-        Movie movie = facade.getMovieById(id);
+        int movieId = m1.getId();
+        Movie movie = facade.getMovieById(movieId);
         assertEquals(m1.getTitle(), movie.getTitle());
     }
-    
+
     @Test
     public void testGetMovieByTitle() {
         String movieTitle = m1.getTitle();
         List<Movie> movies = facade.getMovieByTitle(movieTitle);
         assertEquals(movieTitle, movies.get(0).getTitle());
     }
+
+    @Test
+    public void testAddMovie() {
+        String title = "Nightmare on Elm Street";
+        int year = 1984;
+        double rating = 7.5;
+        facade.addMovie(title, year, rating);
+        assertEquals(3, facade.getMovieCount());
+    }
+    
+//    @Test
+//    public void testGetMoviesWithHighestRating() {
+//        List<Movie> movies = facade.getMoviesWithHighestRating();
+//        assertEquals(movies, m1.getRating());
+//    }
 }

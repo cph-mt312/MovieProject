@@ -74,4 +74,12 @@ public class MovieResource {
         List<Movie> movie = FACADE.getMovieByTitle(title);
         return GSON.toJson(movie);
     }
+
+    @Path("/best_rated")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMoviesWithHighestRating() {
+        List<Movie> movie = FACADE.getMoviesWithHighestRating();
+        return GSON.toJson(movie);
+    }
 }
