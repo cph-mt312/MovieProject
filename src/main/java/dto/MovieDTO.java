@@ -12,7 +12,7 @@ import entities.Movie;
  * @author mattg
  */
 public class MovieDTO {
-    
+
     private String title;
     private int releaseYear;
 
@@ -20,7 +20,4 @@ public class MovieDTO {
         this.title = movie.getTitle();
         this.releaseYear = movie.getReleaseYear();
     }
-
 }
-
-

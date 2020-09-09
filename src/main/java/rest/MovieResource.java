@@ -43,7 +43,7 @@ public class MovieResource {
     }
 
     @GET
-    @Path("/allmovies")
+    @Path("/all")
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
         List<MovieDTO> movieDTOs = new ArrayList<>();
@@ -65,5 +65,13 @@ public class MovieResource {
         MovieDTO movieDTO = new MovieDTO(FACADE.getMovieById(id));
         return new Gson().toJson(movieDTO);
 
+    }
+
+    @Path("/title/{title}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMovieByTitle(@PathParam("title") String title) {
+        List<Movie> movie = FACADE.getMovieByTitle(title);
+        return GSON.toJson(movie);
     }
 }

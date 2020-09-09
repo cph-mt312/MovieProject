@@ -58,14 +58,21 @@ public class MovieFacadeTest {
 
     @Test
     public void testGetAllMovies() {
-        int minSize = 2;
         List<Movie> movies = facade.getAllMovies();
-        assert (movies.size() == minSize);
+        assertEquals(2, movies.size());
     }
 
     @Test
     public void testGetMovieById() {
-        Movie movie = facade.getMovieById(1);
-        assert (movie.getTitle().equalsIgnoreCase("Avatar"));
+        int id = m1.getId();
+        Movie movie = facade.getMovieById(id);
+        assertEquals(m1.getTitle(), movie.getTitle());
+    }
+    
+    @Test
+    public void testGetMovieByTitle() {
+        String movieTitle = m1.getTitle();
+        List<Movie> movies = facade.getMovieByTitle(movieTitle);
+        assertEquals(movieTitle, movies.get(0).getTitle());
     }
 }

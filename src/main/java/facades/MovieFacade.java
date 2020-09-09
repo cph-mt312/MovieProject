@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -73,17 +74,17 @@ public class MovieFacade {
         }
     }
 
-    public Movie getMovieByTitle(String title) {
+    public List<Movie> getMovieByTitle(String title){
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery query
-                    = em.createQuery("SELECT m FROM Movie m WHERE m.title = :title", Movie.class);
-            query.setParameter("title", title);
-            Movie movie = (Movie) query.getSingleResult();
-            return movie;
-        } finally {
+              Query query = em.createNamedQuery("Movie.getByTitle");
+              query.setParameter("title", title);
+              List<Movie> movieList = query.getResultList();
+              return movieList;
+        }         
+        finally {
             em.close();
-        }
+        }  
     }
 
     public Movie addMovie(String title, int year, double rating) {
