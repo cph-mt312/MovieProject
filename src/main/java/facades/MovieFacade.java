@@ -21,17 +21,6 @@ public class MovieFacade {
     private MovieFacade() {
     }
 
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-        MovieFacade facade = MovieFacade.getMovieFacade(emf);
-        Movie m1 = facade.addMovie("Avatar", 2009, 7.8);
-        Movie m2 = facade.addMovie("The Room", 2003, 3.7);
-        Movie m3 = facade.addMovie("Harry Potter and the Prisoner of Azkaban", 2004, 7.9);
-        Movie m4 = facade.addMovie("The Godfather", 1972, 9.2);
-        Movie m5 = facade.addMovie("Alone in the Dark", 2005, 2.4);
-        Movie m6 = facade.addMovie("Pulp Fiction", 1994, 8.9);
-    }
-
     /**
      *
      * @param _emf
@@ -74,17 +63,16 @@ public class MovieFacade {
         }
     }
 
-    public List<Movie> getMovieByTitle(String title){
+    public List<Movie> getMovieByTitle(String title) {
         EntityManager em = emf.createEntityManager();
         try {
-              Query query = em.createNamedQuery("Movie.getByTitle");
-              query.setParameter("title", title);
-              List<Movie> movieList = query.getResultList();
-              return movieList;
-        }         
-        finally {
+            Query query = em.createNamedQuery("Movie.getByTitle");
+            query.setParameter("title", title);
+            List<Movie> movieList = query.getResultList();
+            return movieList;
+        } finally {
             em.close();
-        }  
+        }
     }
 
     public Movie addMovie(String title, int year, double rating) {
@@ -123,4 +111,19 @@ public class MovieFacade {
 
     }
 
+    public void populateDB() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(new Movie("Avatar", 2009, 7.8));
+            em.persist(new Movie("The Room", 2003, 3.7));
+            em.persist(new Movie("Harry Potter and the Prisoner of Azkaban", 2004, 7.9));
+            em.persist(new Movie("The Godfather", 1972, 9.2));
+            em.persist(new Movie("Alone in the Dark", 2005, 2.4));
+            em.persist(new Movie("Pulp Fiction", 1994, 8.9));
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
 }

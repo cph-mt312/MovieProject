@@ -82,4 +82,12 @@ public class MovieResource {
         List<Movie> movie = FACADE.getMoviesWithHighestRating();
         return GSON.toJson(movie);
     }
+
+    @GET
+    @Path("/populate")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String populate() {
+        FACADE.populateDB();
+        return "{\"msg\":\"6 rows added\"}";
+    }
 }
