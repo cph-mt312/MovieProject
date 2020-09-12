@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div id="names"></div>
+        <form>
+            <input type="text" id="inputName">
+            <input type="submit" id="addName" onclick="addNameToList()" value="Add name"><br><br>
+            <input type="submit" id="removeTop" onclick="removeFirst()" value="Remove first name"><br><br>
+            <input type="submit" id="removeBottom" onclick="removeLast()" value="Remove last name">
+        </form>
+
+        <script>
+
+            let namesDiv = document.getElementById("names");
+            let namesForList = ["Lars", "Jan", "Bo", "Peter", "Frederik", "Jytte", "Ib"];
+
+            function nameArrayToHTML(arrayList) {
+                var ulList = "<ul>";
+                var listTags = arrayList.map(name => "<li>" + name + "</li>");
+                ulList += listTags.join("");
+                ulList += "</ul>";
+                return ulList;
+            }
+            namesDiv.innerHTML = nameArrayToHTML(namesForList);
+
+            function addNameToList() {
+                event.preventDefault();
+                var name = document.getElementById("inputName");
+                namesForList.push(name.value);
+                namesDiv.innerHTML = nameArrayToHTML(namesForList);
+            }
+
+            function removeFirst() {
+                event.preventDefault();
+                namesForList.shift();
+                namesDiv.innerHTML = nameArrayToHTML(namesForList);
+            }
+
+            function removeLast() {
+                event.preventDefault();
+                namesForList.pop();
+                namesDiv.innerHTML = nameArrayToHTML(namesForList);
+            }
+
+        </script>
+
+    </body>
+</html>

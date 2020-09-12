@@ -1,0 +1,15 @@
+div {
+    text-align: center;
+    font-family: "Lucida Console", Courier, monospace;
+    color: #FFFFE0;
+}
+
+a {
+    color: #82b74b;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: black;
+}

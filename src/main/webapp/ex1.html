@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            body {
+                background-color: black;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="1">First</div>
+        <div id="2">Second</div>
+        <div id="3">Third</div>
+        <br>
+        <button id="btn">Boop</button>
+
+        <script>
+            var ids = document.getElementsByTagName("div");
+            for (var i = 0; i < ids.length; i++) {
+                ids[i].style.color = "blue";
+            }
+
+            function individualColors() {
+                document.getElementById("1").style.color = "yellow";
+                document.getElementById("2").style.color = "orange";
+                document.getElementById("3").style.color = "red";
+            }
+
+            let btn = document.getElementById("btn");
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                individualColors();
+            })
+        </script>
+
+    </body>
+</html>
