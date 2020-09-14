@@ -19,7 +19,7 @@
                     <th scope="col">Price</th>
                 </tr>
             </thead>
-            <tbody id="tablebody">
+            <tbody id="tableElements">
             </tbody>
         </table>
 
@@ -45,7 +45,7 @@
 
             function carsTable(array) {
                 let arrayOfCars = array.map(cars => `<tr><td>${cars.id}</td><td>${cars.year}</td><td>${cars.make}</td><td>${cars.model}</td><td>${cars.price}`);
-                document.getElementById("tablebody").innerHTML = arrayOfCars.join("");
+                document.getElementById("tableElements").innerHTML = arrayOfCars.join("");
             }
             carsTable(cars);
 
