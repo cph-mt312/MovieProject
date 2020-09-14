@@ -84,10 +84,9 @@ public class MovieFacadeTest {
         facade.addMovie(title, year, rating);
         assertEquals(3, facade.getMovieCount());
     }
-    
-//    @Test
-//    public void testGetMoviesWithHighestRating() {
-//        List<Movie> movies = facade.getMoviesWithHighestRating();
-//        assertEquals(movies, m1.getRating());
-//    }
+
+    @Test
+    public void testMovieCount() {
+        assertEquals(2, facade.getMovieCount());
+    }
 }
