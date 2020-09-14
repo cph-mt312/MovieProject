@@ -19,7 +19,7 @@
                     <th scope="col">Price</th>
                 </tr>
             </thead>
-            <tbody id="tableElements">
+            <tbody id="tableData">
             </tbody>
         </table>
 
@@ -37,17 +37,17 @@
             ];
             document.getElementById("btn").addEventListener("click", filterCars);
 
-            function filterCars() {
-                let price = document.getElementById("price").value;
-                let carsFiltered = cars.filter(cars => cars.price < price);
-                carsTable(carsFiltered);
-            }
-
             function carsTable(array) {
                 let arrayOfCars = array.map(cars => `<tr><td>${cars.id}</td><td>${cars.year}</td><td>${cars.make}</td><td>${cars.model}</td><td>${cars.price}`);
-                document.getElementById("tableElements").innerHTML = arrayOfCars.join("");
+                document.getElementById("tableData").innerHTML = arrayOfCars.join("");
             }
             carsTable(cars);
+            
+            function filterCars() {
+                let price = document.getElementById("price").value;
+                let carsFiltered = cars.filter(car => car.price < price);
+                carsTable(carsFiltered);
+            }
 
         </script>
 
